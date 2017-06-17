@@ -6,6 +6,7 @@
 
 #include <SDL.h>
 #include <vector>
+#include <queue>
 
 
 struct MappedVirtualKey_t
@@ -27,7 +28,8 @@ struct MappedVirtualKey_t
 	{
 		const char* m_szKeyName;
 		ui32 m_ui32KeyCode;
-		bool m_bWasUp;
+		bool m_bPressed;
+		bool m_bModifierKey;
 	} m_extendedData;
 };
 
@@ -45,6 +47,7 @@ public:
 private:
 	bool CreateRawInputDevices();
 	bool MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey_t* keyData);
+	void FireKeyEvent(MappedVirtualKey_t* keyData);
 
 private:
 	HINSTANCE m_hInstance; //This is our programs handle
@@ -54,6 +57,9 @@ private:
 	const char* m_szWindowName = "Wolfheart Windows Game";
 	const char* m_szClassName = "WolfheartEngine_Class";
 
+
+	bool m_bPreviousKeyState[512];
+	bool m_bCurrentKeyState[512];
 
 };
 

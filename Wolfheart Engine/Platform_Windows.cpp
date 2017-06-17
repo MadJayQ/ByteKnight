@@ -1,5 +1,6 @@
 #include "Platform_Windows.h"
 #include "DummyEvent.h"
+#include "InputEvent.h"
 
 #include <cassert>
 #include <iostream>
@@ -104,6 +105,18 @@ CWin32GameWindow::CWin32GameWindow(HINSTANCE hInstance, const char* szWindowName
 
 	assert(CreateRawInputDevices());
 
+	memset(
+		(void*)m_bPreviousKeyState,
+		false,
+		512
+	);
+
+	memset(
+		(void*)m_bCurrentKeyState,
+		false,
+		512
+	);
+
 }
 
 CWin32GameWindow::~CWin32GameWindow()
@@ -145,15 +158,7 @@ LRESULT CWin32GameWindow::MessageProcedureLoop(HWND hwnd, UINT uMsg, WPARAM wPar
 			MappedVirtualKey_t keyData;
 			if (This->MapCorrectVirtualKey(ui8Buffer, &keyData))
 			{
-#ifdef _DEBUG
-				std::cout << "[DEBUG]: KEY SUCCESSFULLY CORRECTED!" << std::endl;
-#endif
-			}
-			else
-			{
-#ifdef _DEBUG
-				std::cout << "[DEBUG]: MICROSOFT BULLSHIT DETECTED!" << std::endl;
-#endif
+				This->FireKeyEvent(&keyData);
 			}
 		}
 
@@ -210,6 +215,8 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 	ui32 ui32ScanCode = pKeyboardData->MakeCode;
 	ui32 ui32Flags = pKeyboardData->Flags;
 
+	bool bIsModifier = false;
+
 	//These are our non-corrected datum
 	keyData->m_oldValues.m_ui32ScanCode = ui32ScanCode;
 	keyData->m_oldValues.m_ui32VirtualKey = ui32VirtualKey;
@@ -226,6 +233,8 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 			ui32ScanCode,
 			MAPVK_VSC_TO_VK
 		);
+
+		bIsModifier = true;
 	}
 	else if (ui32VirtualKey == VK_NUMLOCK)
 	{
@@ -259,11 +268,13 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 		case VK_CONTROL:
 		{
 			ui32VirtualKey = (e0) ? VK_RCONTROL : VK_LCONTROL;
+			bIsModifier = true;
 			break;
 		}
 		case VK_MENU:
 		{
 			ui32VirtualKey = (e0) ? VK_RMENU : VK_LMENU;
+			bIsModifier = true;
 			break;
 		}
 	}
@@ -271,7 +282,7 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 	keyData->m_correctedValues.m_ui32VirtualKey = ui32VirtualKey;
 	keyData->m_correctedValues.m_ui32ScanCode = ui32ScanCode;
 	
-	const bool up = ((ui32Flags & RI_KEY_BREAK) != 0);
+	const bool pressed = ((ui32Flags & RI_KEY_BREAK) == 0);
 	ui32 ui32KeyCode = (ui32ScanCode << 16) | (e0 << 24);
 
 	char buffer[512] = {};
@@ -283,9 +294,66 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 
 	keyData->m_extendedData.m_szKeyName = buffer;
 	keyData->m_extendedData.m_ui32KeyCode = ui32KeyCode;
-	keyData->m_extendedData.m_bWasUp = up;
+	keyData->m_extendedData.m_bPressed = pressed;
+	keyData->m_extendedData.m_bModifierKey = bIsModifier;
 
 	return true;
+}
+
+void CWin32GameWindow::FireKeyEvent(MappedVirtualKey_t* keyData)
+{
+
+	ui32 ui32VirtualKey = keyData->m_correctedValues.m_ui32VirtualKey;
+	m_bCurrentKeyState[ui32VirtualKey] = keyData->m_extendedData.m_bPressed;
+
+	ButtonState buttonState;
+	ui32 ui32KeyModifers = 0;
+
+	CKeyInputEvent* e = NULL;
+
+	buttonState = ButtonState::KeyState_Released;
+
+	if (m_bCurrentKeyState[ui32VirtualKey] && m_bPreviousKeyState[ui32VirtualKey])
+	{
+		buttonState = ButtonState::KeyState_Held;
+	}
+
+	if (m_bCurrentKeyState[ui32VirtualKey] && !m_bPreviousKeyState[ui32VirtualKey])
+	{
+		buttonState = ButtonState::KeyState_Pressed;
+	}
+
+	if (!keyData->m_extendedData.m_bModifierKey)
+	{
+		if (m_bCurrentKeyState[VK_LSHIFT]) { ui32KeyModifers |= MODIFIER_LSHIFT; }
+		if (m_bCurrentKeyState[VK_LCONTROL]) { ui32KeyModifers |= MODIFIER_LCNTRL; }
+		if (m_bCurrentKeyState[VK_LMENU]) { ui32KeyModifers |= MODIFIER_LALT; }
+
+		if (m_bCurrentKeyState[ui32VirtualKey])
+
+			e = new CKeyInputEvent(
+				ui32VirtualKey,
+				ui32KeyModifers,
+				buttonState
+			);
+
+	}
+	else if (ui32VirtualKey == VK_LSHIFT || ui32VirtualKey == VK_RSHIFT)
+	{
+		e = new CKeyInputEvent(
+			ui32VirtualKey,
+			0,
+			buttonState
+		);
+	}
+
+	if (e != NULL)
+	{
+		EventNotify(NULL, e);
+	}
+
+
+
 }
 
 SDL_Window * Platform::Windows::Windows_CreateSDLWindow(CWin32GameWindow* window)

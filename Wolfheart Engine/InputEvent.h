@@ -17,22 +17,22 @@ enum ButtonState
 	For Keyboard Input
 */
 
-class CKeyInputEvent : IEvent
+class CKeyInputEvent : public IEvent
 {
 public:
-	CKeyInputEvent(int nKeyNum, ui32 ui32Modifiers, ButtonState keyState)
+	CKeyInputEvent(ui32 ui32KeyNum, ui32 ui32Modifiers, ButtonState keyState)
 	{
-		m_nKeyNum = nKeyNum;
+		m_ui32KeyNum = ui32KeyNum;
 
 	}
 	~CKeyInputEvent() {}
 
 	ui32 GetModifiers() const { return m_ui32Modifiers; }
-	int GetKeyNum() const { return m_nKeyNum; }
+	ui32 GetKeyNum() const { return m_ui32KeyNum; }
 	ButtonState GetKeyState() const { return m_keyState; }
 
 private:
-	int m_nKeyNum;
+	ui32 m_ui32KeyNum;
 	ui32 m_ui32Modifiers;
 	ButtonState m_keyState;
 };
