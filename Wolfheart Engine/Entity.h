@@ -1,8 +1,7 @@
 #pragma once
 
 #include "EngineMath.h"
-
-
+#include "EntityComponent.h"
 #include <unordered_map>
 #include <typeinfo>
 #include <memory>
@@ -51,6 +50,6 @@ public:
 
 private:
 	ui32 m_ui32EntityID;
-	std::unordered_map<const std::type_info*, std::unique_ptr<void*>> m_components;
+	std::unordered_map<const std::type_info*, std::unique_ptr<IEntityComponent*>> m_components;
 
 };

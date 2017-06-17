@@ -144,6 +144,9 @@
     <ClInclude Include="MovementComponent.h">
       <Filter>Header Files\Engine\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="2DRenderComponent.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="GameSubsystem.cpp">
       <Filter>Source Files\Engine\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="2DRenderComponent.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

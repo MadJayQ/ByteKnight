@@ -19,19 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BA1FAF0D-A16C-48CA-A56F-1B0FC7DD17D9}</ProjectGuid>
-    <RootNamespace>WolfheartEngine</RootNamespace>
+    <ProjectGuid>{54558906-2633-449D-8391-E1DC4B6F20D0}</ProjectGuid>
+    <RootNamespace>ByteKnight</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>ByteKnight_Windows</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -69,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;C:\Users\Jakes\Desktop\ByteKnight\Wolfheart Engine;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Win32\Debug;C:\Users\Jakes\Desktop\ByteKnight\Debug;C:\Game Development\SDL2_image-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -78,6 +79,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;Wolfheart Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -113,52 +117,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="2DRenderComponent.h" />
-    <ClInclude Include="AssetLoader.h" />
-    <ClInclude Include="Defines.h" />
-    <ClInclude Include="DeviceNotify.h" />
-    <ClInclude Include="DummyEvent.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityComponent.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="EventObserver.h" />
-    <ClInclude Include="EventSource.h" />
-    <ClInclude Include="GameSubsystem.h" />
-    <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="GameWorld.h" />
-    <ClInclude Include="GlobalVars.h" />
-    <ClInclude Include="GraphicDevice.h" />
-    <ClInclude Include="EngineMath.h" />
-    <ClInclude Include="InputEvent.h" />
-    <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="ObjectMetadata.h" />
-    <ClInclude Include="Platform_Windows.h" />
-    <ClInclude Include="PositionComponent.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="TextureUtils.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vector3.h" />
+    <ClCompile Include="GameInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2DRenderComponent.cpp" />
-    <ClCompile Include="AssetLoader.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EngineMath.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EventSource.cpp" />
-    <ClCompile Include="GameSubsystem.cpp" />
-    <ClCompile Include="GameWorld.cpp" />
-    <ClCompile Include="GlobalVars.cpp" />
-    <ClCompile Include="GraphicDevice.cpp" />
-    <ClCompile Include="MovementComponent.cpp" />
-    <ClCompile Include="Platform_Windows.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="TextureUtils.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="Windows_EntryPoint.cpp" />
+    <ClInclude Include="GameInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
