@@ -25,6 +25,5 @@ public:
 
 	bool IsZero();
 
-private:
 	float _x, _y, _z;
 };

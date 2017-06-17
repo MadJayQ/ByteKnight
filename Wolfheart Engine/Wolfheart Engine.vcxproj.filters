@@ -55,6 +55,18 @@
     <Filter Include="Header Files\Engine\Event\EventTypes">
       <UniqueIdentifier>{c5de861a-ad6b-4e8c-9df5-9b0cc81ab0de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Subsystem">
+      <UniqueIdentifier>{61b54e90-3dfb-432d-9e26-64c8d0628a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Entity">
+      <UniqueIdentifier>{8ebbc57c-350c-4e60-8b30-0817e80767ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Entity">
+      <UniqueIdentifier>{9675b22b-80e1-4e93-a805-c99d49dc5852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Subsystems">
+      <UniqueIdentifier>{219078dd-1c1c-450a-98ab-4da009b61f90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Platform_Windows.h">
@@ -67,9 +79,6 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="DeviceNotify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineDeviceMessageHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameWindow.h">
@@ -96,16 +105,10 @@
     <ClInclude Include="Defines.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameWorld.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalVars.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="ObjectMetadata.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="EventObserver.h">
@@ -122,6 +125,24 @@
     </ClInclude>
     <ClInclude Include="InputEvent.h">
       <Filter>Header Files\Engine\Event\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSubsystem.h">
+      <Filter>Header Files\Engine\Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWorld.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityComponent.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionComponent.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Header Files\Engine\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,20 +176,26 @@
     <ClCompile Include="TextureUtils.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameWorld.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineDeviceMessageHandler.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="AssetLoader.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="EventSource.cpp">
       <Filter>Source Files\Engine\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionComponent.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSubsystem.cpp">
+      <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
