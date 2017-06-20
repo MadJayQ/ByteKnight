@@ -16,11 +16,3 @@ protected:
 
 	std::vector<CEntityBase*> m_registeredEntities;
 };
-
-
-class CGameSubsystemManager
-{
-
-}; 
-
-CGameSubsystemManager* GetSubsystemManager();
