@@ -135,6 +135,7 @@
     <ClInclude Include="ObjectMetadata.h" />
     <ClInclude Include="Platform_Windows.h" />
     <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="RenderSubsystem.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextureUtils.h" />
     <ClInclude Include="Timer.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Platform_Windows.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="RenderSubsystem.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureUtils.cpp" />
     <ClCompile Include="Timer.cpp" />

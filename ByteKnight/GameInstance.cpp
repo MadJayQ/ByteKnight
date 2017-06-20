@@ -11,6 +11,7 @@
 #include <Defines.h>
 #include <GameWorld.h>
 #include <GlobalVars.h>
+#include <GameSubsystem.h>
 #include <DummyEvent.h>
 
 constexpr const char* g_szBuildDate = __DATE__;
@@ -27,7 +28,7 @@ std::unique_ptr<CSprite> g_pTestSprite;
 std::unique_ptr<CTimer> g_pTimer;
 std::unique_ptr<CGameWorld> g_pGameWorld;
 std::unique_ptr<CGlobalVars> g_pGlobalVars;
-
+std::unique_ptr<CGameSubsystemManager> g_pSubsystemManager;
 
 float flAccumulatedTime = 0.f;
 float flLastTime = 0.f;
@@ -36,6 +37,11 @@ constexpr float MAX_TICK_TIME_DELTA = 1.f / 10.f; //1/10th of a second
 CGlobalVars* GetGlobalVars()
 {
 	return g_pGlobalVars.get();
+}
+
+CGameSubsystemManager* GetSubsystemManager()
+{
+	return g_pSubsystemManager.get();
 }
 
 
@@ -158,7 +164,7 @@ void GameInstance::Render()
 	m_pGraphicsDevice->Present();
 }
 
-void GameInstance::OnEventNotify(Entity* ent, IEvent* e)
+void GameInstance::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
 	if (dynamic_cast<CDummyEvent*>(e))
 	{

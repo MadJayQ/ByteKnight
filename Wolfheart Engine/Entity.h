@@ -7,11 +7,11 @@
 #include <memory>
 
 
-class Entity
+class CEntityBase
 {
 public:
-	Entity(ui32 ui32EntityID);
-	~Entity();
+	CEntityBase(ui32 ui32EntityID);
+	~CEntityBase();
 
 
 	template<typename T>
@@ -50,6 +50,6 @@ public:
 
 private:
 	ui32 m_ui32EntityID;
-	std::unordered_map<const std::type_info*, std::unique_ptr<IEntityComponent*>> m_components;
+	std::unordered_map<const std::type_info*, std::unique_ptr<IEntityComponent>> m_components;
 
 };

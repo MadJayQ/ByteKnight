@@ -29,7 +29,7 @@ void IEventSource::UnRegisterObserver(IEventObserver*& observer, bool bDelete)
 	if (bDelete) { delete observer; observer = NULL; }
 }
 
-void IEventSource::EventNotify(Entity* ent, IEvent* e)
+void IEventSource::EventNotify(CEntityBase* ent, IEvent* e)
 {
 	for (auto& observer : m_observers)
 	{

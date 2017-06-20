@@ -147,6 +147,9 @@
     <ClInclude Include="2DRenderComponent.h">
       <Filter>Header Files\Engine\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="RenderSubsystem.h">
+      <Filter>Header Files\Engine\Subsystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -202,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="2DRenderComponent.cpp">
       <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSubsystem.cpp">
+      <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

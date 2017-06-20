@@ -2,6 +2,8 @@
 #include "Entity.h"
 
 #include <vector>
+#include <memory>
+
 class IGameSubsystem
 {
 public:
@@ -9,8 +11,16 @@ public:
 	virtual void Tick(float flDeltaTime) = 0;
 
 protected:
-	void RegisterEntity(Entity* ent);
-	void UnRegisterEntity(Entity* ent);
+	void RegisterEntity(CEntityBase* ent);
+	void UnRegisterEntity(CEntityBase* ent);
 
-	std::vector<Entity*> m_registeredEntities;
+	std::vector<CEntityBase*> m_registeredEntities;
 };
+
+
+class CGameSubsystemManager
+{
+
+}; 
+
+CGameSubsystemManager* GetSubsystemManager();

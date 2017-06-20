@@ -16,7 +16,7 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	virtual void OnEventNotify(Entity* ent, IEvent* e) override;
+	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
 
 private:
 

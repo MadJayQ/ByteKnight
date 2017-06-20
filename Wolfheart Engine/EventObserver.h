@@ -7,5 +7,5 @@ class IEventObserver
 {
 public:
 	virtual ~IEventObserver() {}
-	virtual void OnEventNotify(Entity* ent, IEvent* e) = 0;
+	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) = 0;
 };

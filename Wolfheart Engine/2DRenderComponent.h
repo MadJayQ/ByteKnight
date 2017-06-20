@@ -12,10 +12,10 @@ public:
 	C2DRenderComponent(CSprite* sprite);
 	~C2DRenderComponent();
 
-	void SetSprite(CSprite* sprite) { m_pSprite = std::make_unique<CSprite>(sprite); }
-	CSprite* GetSprite() const { return m_pSprite.get(); }
+	void SetSprite(CSprite* sprite) { m_pSprite = sprite; }
+	CSprite* GetSprite() const { return m_pSprite; }
 
 
 private:
-	std::unique_ptr<CSprite> m_pSprite; //Replace later w/ texture atlas for animated sprite components
+	CSprite* m_pSprite; //Replace later w/ texture atlas for animated sprite components
 };

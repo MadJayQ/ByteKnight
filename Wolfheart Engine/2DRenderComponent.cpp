@@ -6,14 +6,14 @@ C2DRenderComponent::C2DRenderComponent()
 
 C2DRenderComponent::C2DRenderComponent(CSprite* sprite)
 {
-	m_pSprite = std::make_unique<CSprite>(sprite);
+	m_pSprite = sprite;
 }
 
 C2DRenderComponent::~C2DRenderComponent()
 {
-	if (m_pSprite.get() != NULL)
+	if (m_pSprite != NULL)
 	{
-		m_pSprite.reset();
-		m_pSprite.release();
+		delete m_pSprite;
+		m_pSprite = 0;
 	}
 }
