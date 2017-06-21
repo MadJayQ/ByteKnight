@@ -2,6 +2,8 @@
 
 #include "EngineMath.h"
 #include "EntityComponent.h"
+#include "GameWorld.h"
+
 #include <unordered_map>
 #include <typeinfo>
 #include <memory>
@@ -10,7 +12,7 @@
 class CEntityBase
 {
 public:
-	CEntityBase(ui32 ui32EntityID);
+	CEntityBase(ui32 ui32EntityID, CGameWorld* pGameWorld);
 	~CEntityBase();
 
 
@@ -50,6 +52,7 @@ public:
 
 private:
 	ui32 m_ui32EntityID;
+	CGameWorld* m_pGameWorld;
 	std::unordered_map<const std::type_info*, std::unique_ptr<IEntityComponent>> m_components;
 
 };

@@ -23,7 +23,8 @@ public:
 	Entity* SpawnEntity(CVector3 vecSpawnPos)
 	{
 		Entity* ent = new Entity(
-			GenerateNextAvailableEID()
+			GenerateNextAvailableEID(),
+			this
 		);
 		CPositionComponent* pPositionComponent = ent->GetComponent<CPositionComponent>();
 		if (!pPositionComponent) pPositionComponent = ent->AddComponent<CPositionComponent>();
@@ -37,7 +38,8 @@ public:
 	Entity* SpawnEntity()
 	{
 		Entity* ent = new Entity(
-			GenerateNextAvailableEID()
+			GenerateNextAvailableEID(),
+			this
 		);
 		m_pEntities.push_back(ent);
 		return ent;

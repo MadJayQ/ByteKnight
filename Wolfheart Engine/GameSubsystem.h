@@ -10,9 +10,9 @@ public:
 	virtual ~IGameSubsystem() {}
 	virtual void Tick(float flDeltaTime) = 0;
 
-protected:
 	void RegisterEntity(CEntityBase* ent);
 	void UnRegisterEntity(CEntityBase* ent);
 
+protected:
 	std::vector<CEntityBase*> m_registeredEntities;
 };
