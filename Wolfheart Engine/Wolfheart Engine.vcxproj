@@ -132,6 +132,7 @@
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="MovementSubsystem.h" />
     <ClInclude Include="ObjectMetadata.h" />
     <ClInclude Include="Platform_Windows.h" />
     <ClInclude Include="PositionComponent.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="GraphicDevice.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="MovementSubsystem.cpp" />
     <ClCompile Include="Platform_Windows.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="RenderSubsystem.cpp" />
