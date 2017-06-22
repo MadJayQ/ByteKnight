@@ -11,8 +11,13 @@
 #include <Defines.h>
 #include <GameWorld.h>
 #include <GlobalVars.h>
-#include <GameSubsystem.h>
 #include <DummyEvent.h>
+
+
+#include <RenderSubsystem.h>
+#include <MovementSubsystem.h>
+
+#include "TestEntity.h"
 
 constexpr const char* g_szBuildDate = __DATE__;
 constexpr const char* g_szBuildTime = __TIME__;
@@ -24,7 +29,6 @@ const char* g_szClassName = "CLASS_ByteKnight";
 MSG g_lastMessage = MSG{ 0 };
 
 std::unique_ptr<CAssetLoader> g_pAssetLoader;
-std::unique_ptr<CSprite> g_pTestSprite;
 std::unique_ptr<CTimer> g_pTimer;
 std::unique_ptr<CGameWorld> g_pGameWorld;
 std::unique_ptr<CGlobalVars> g_pGlobalVars;
@@ -88,10 +92,13 @@ void GameInstance::Initialize()
 	);
 	m_pGraphicsDevice->CreateRenderer();
 	g_pAssetLoader = std::make_unique<CAssetLoader>(m_pGraphicsDevice.get());
+	/*
 	g_pTestSprite = std::make_unique<CSprite>(
 		"Assets\\GameAssets\\Development\\test_background.png", 
 		SPRITE_FILE_TYPE::SPRITE_FILE_TYPE_PNG
 	);
+	*/
+
 	g_pGlobalVars = std::make_unique<CGlobalVars>();
 	g_pGlobalVars->ui32Tickrate = 64;
 	g_pGlobalVars->flTickInterval = 1.f / static_cast<float>(g_pGlobalVars->ui32Tickrate);
@@ -99,6 +106,12 @@ void GameInstance::Initialize()
 	g_pTimer = std::make_unique<CTimer>();
 	g_pTimer->StartTimer();
 	m_bLooping = true;
+
+	g_pGameWorld->CreateSubsystem<CRenderSubsystem>();
+	g_pGameWorld->CreateSubsystem<CMovementSubsystem>();
+	auto ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(15.f, 15.f, 0.f));
+	ent->GetComponent<CMovementComponent>()->SetVelocity(v3(200.f, 200.f, 0.f));
+
 }
 
 int GameInstance::EngineLoop()
@@ -138,34 +151,17 @@ void GameInstance::Update()
 
 	g_pGlobalVars->flInterpolation = flAccumulatedTime / flTargetTickTime;
 	g_pGlobalVars->flCurrentTime = flCurrentTime;
-
-
 }
 
 void GameInstance::Render()
 {
 	//For now just do our rendering ASAP 
 	m_pGraphicsDevice->Clear();
-	SDL_Texture* texture = g_pTestSprite->GetTexture();
-	assert(texture != NULL);
-	SDL_Rect renderingRegion = g_pTestSprite->GetRenderingRect();
-	SDL_RenderCopy(
-		m_pGraphicsDevice->GetHardwareRenderer(),
-		texture,
-		NULL,
-		&renderingRegion
-	);
+	g_pGameWorld->GetSubsystem<CRenderSubsystem>()->Render(m_pGraphicsDevice.get());
 	m_pGraphicsDevice->Present();
 }
 
 void GameInstance::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
-	if (dynamic_cast<CDummyEvent*>(e))
-	{
-		std::cout << "[DEBUG]: DUMMY EVENT INTERCEPTED" << std::endl;
-	}
-	else
-	{
-		std::cout << "[DEBUG]: UNHANDLED EVENT TYPE INTERCEPTED" << std::endl;
-	}
+
 }

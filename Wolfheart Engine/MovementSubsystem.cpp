@@ -23,10 +23,13 @@ void CMovementSubsystem::Tick(float flDeltaTime)
 		if (!pPositionComponent || !pMovementComponent)
 			continue;
 
+		v3 vecOldPosition = pPositionComponent->GetPositon();
 		pMovementComponent->ApplyMovement(
 			pPositionComponent, 
 			flDeltaTime
 		);
+
+		pPositionComponent->SetOldPosition(vecOldPosition);
 
 	}
 }

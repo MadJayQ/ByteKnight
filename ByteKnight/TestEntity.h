@@ -8,6 +8,8 @@
 
 class CTestEntity : public CEntityBase
 {
+public:
+
 	CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld);
 	~CTestEntity();
 

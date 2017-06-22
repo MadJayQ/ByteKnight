@@ -1,5 +1,6 @@
 #pragma once
 #include "EventObserver.h"
+#include "Entity.h"
 
 #include <vector>
 

@@ -2,12 +2,12 @@
 
 #include "EngineMath.h"
 #include "EntityComponent.h"
-#include "GameWorld.h"
-
 #include <unordered_map>
 #include <typeinfo>
 #include <memory>
 
+
+class CGameWorld;
 
 class CEntityBase
 {
@@ -49,7 +49,10 @@ public:
 	}
 
 	ui32 GetEntityID() const { return m_ui32EntityID; }
+	bool ShouldInterpolate() const { return m_bInterpolate; }
 
+protected:
+	bool m_bInterpolate;
 private:
 	ui32 m_ui32EntityID;
 	CGameWorld* m_pGameWorld;

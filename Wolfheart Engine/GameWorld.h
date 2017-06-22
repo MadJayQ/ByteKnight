@@ -6,7 +6,6 @@
 #include "PositionComponent.h"
 #include "EventObserver.h"
 #include "EventSource.h"
-#include "GameSubsystem.h"
 
 #include <vector>
 #include <queue>
