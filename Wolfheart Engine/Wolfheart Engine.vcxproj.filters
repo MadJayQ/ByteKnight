@@ -153,6 +153,9 @@
     <ClInclude Include="MovementSubsystem.h">
       <Filter>Header Files\Engine\Subsystem</Filter>
     </ClInclude>
+    <ClInclude Include="InputSubsystem.h">
+      <Filter>Header Files\Engine\Subsystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -213,6 +216,9 @@
       <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="MovementSubsystem.cpp">
+      <Filter>Source Files\Engine\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSubsystem.cpp">
       <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>

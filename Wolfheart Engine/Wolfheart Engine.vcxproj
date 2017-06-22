@@ -131,6 +131,7 @@
     <ClInclude Include="GraphicDevice.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="InputEvent.h" />
+    <ClInclude Include="InputSubsystem.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MovementSubsystem.h" />
     <ClInclude Include="ObjectMetadata.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="GraphicDevice.cpp" />
+    <ClCompile Include="InputSubsystem.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="MovementSubsystem.cpp" />
     <ClCompile Include="Platform_Windows.cpp" />

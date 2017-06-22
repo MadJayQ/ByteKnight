@@ -16,6 +16,7 @@
 
 #include <RenderSubsystem.h>
 #include <MovementSubsystem.h>
+#include <InputSubsystem.h>
 
 #include "TestEntity.h"
 
@@ -109,6 +110,9 @@ void GameInstance::Initialize()
 
 	g_pGameWorld->CreateSubsystem<CRenderSubsystem>();
 	g_pGameWorld->CreateSubsystem<CMovementSubsystem>();
+	m_pGameWindow->RegisterObserver(
+		g_pGameWorld->CreateSubsystem<CInputSubsystem>()
+	);
 	auto ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(15.f, 15.f, 0.f));
 	ent->GetComponent<CMovementComponent>()->SetVelocity(v3(200.f, 200.f, 0.f));
 
