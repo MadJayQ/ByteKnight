@@ -11,4 +11,7 @@ public:
 
 	virtual void Tick(float flDeltaTime) override;
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
+
+private:
+	ui64 m_ui64MovementBitflags;
 };
