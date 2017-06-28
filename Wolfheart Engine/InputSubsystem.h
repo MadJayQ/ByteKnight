@@ -1,7 +1,9 @@
 #pragma once
-
 #include "GameSubsystem.h"
 #include "EventObserver.h"
+#include "InputEvent.h"
+
+#include <queue>
 
 class CInputSubsystem : public IGameSubsystem, public IEventObserver
 {
@@ -13,5 +15,5 @@ public:
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
 
 private:
-	ui64 m_ui64MovementBitflags;
+	std::queue<CKeyInputEvent*> m_aggregatedInput;
 };

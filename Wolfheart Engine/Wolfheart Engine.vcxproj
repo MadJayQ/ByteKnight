@@ -130,6 +130,7 @@
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="GraphicDevice.h" />
     <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="InputControllerComponent.h" />
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="InputSubsystem.h" />
     <ClInclude Include="MovementComponent.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="GlobalVars.cpp" />
     <ClCompile Include="GraphicDevice.cpp" />
+    <ClCompile Include="InputControllerComponent.cpp" />
     <ClCompile Include="InputSubsystem.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="MovementSubsystem.cpp" />

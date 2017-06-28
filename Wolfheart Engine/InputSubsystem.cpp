@@ -1,8 +1,7 @@
 #include "InputSubsystem.h"
-#include "InputEvent.h"
-
 #include "MovementComponent.h"
 #include "PositionComponent.h"
+#include "InputControllerComponent.h"
 
 CInputSubsystem::CInputSubsystem()
 {
@@ -20,10 +19,16 @@ void CInputSubsystem::Tick(float flDeltaTime)
 	{
 		CPositionComponent* pPositionComponent = ent->GetComponent<CPositionComponent>();
 		CMovementComponent* pMovementComponent = ent->GetComponent<CMovementComponent>();
+		CInputControllerComponent* pInputControllerComponent = ent->GetComponent<CInputControllerComponent>();
 
-		if (pPositionComponent && pMovementComponent)
+		if (pInputControllerComponent)
 		{
-
+			while (!m_aggregatedInput.empty())
+			{
+				auto pInputEvent = m_aggregatedInput.front();
+				pInputControllerComponent->ProcessInput(pInputEvent);
+				m_aggregatedInput.pop();
+			}
 		}
 
 	}
@@ -33,6 +38,6 @@ void CInputSubsystem::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
 	if (dynamic_cast<CKeyInputEvent*>(e))
 	{
-
+		m_aggregatedInput.emplace(e);
 	}
 }
