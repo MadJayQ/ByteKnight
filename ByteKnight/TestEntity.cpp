@@ -2,22 +2,21 @@
 
 #include <RenderSubsystem.h>
 #include <MovementSubsystem.h>
+#include <InputSubsystem.h>
+
 #include <GameWorld.h>
 
+#include <iostream>
 CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBase(ui32EntityID, pGameWorld)
 {
 	m_pRenderComponent = AddComponent<C2DRenderComponent>();
 	m_pMovementComponent = AddComponent<CMovementComponent>();
 	m_pPositionComponent = AddComponent<CPositionComponent>();
+	m_pInputComponent = AddComponent<CInputControllerComponent>();
 
-	CRenderSubsystem* pRenderSubsystem = pGameWorld->GetSubsystem<CRenderSubsystem>();
-	CMovementSubsystem* pMovementSubsystem = pGameWorld->GetSubsystem<CMovementSubsystem>();
+	m_pInputComponent->CreateAxisBinding("MOVEMENT_LEFTRIGHT", this, &CTestEntity::InputAxis);
 
-	if (pRenderSubsystem && pMovementSubsystem)
-	{
-		pRenderSubsystem->RegisterEntity(this);
-		pMovementSubsystem->RegisterEntity(this);
-	}
+	pGameWorld->RegisterEntityToSubsystems<CRenderSubsystem, CMovementSubsystem, CInputSubsystem>(this);
 
 	m_pRenderComponent->SetSprite(
 		new CSprite(
@@ -33,4 +32,9 @@ CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBas
 CTestEntity::~CTestEntity()
 {
 
+}
+
+void CTestEntity::InputAxis(CVector3 vecNormalizedInput)
+{
+	std::cout << "Swag\n";
 }

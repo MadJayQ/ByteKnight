@@ -70,11 +70,40 @@ public:
 		return NULL;
 	}
 
+	template<typename... Subsystems>
+	void RegisterEntityToSubsystems(CEntityBase* ent)
+	{
+		RegisterEntToSubsystem_Helper<Subsystems...>::exec(this, ent);
+	}
+
 	void DestroyEntity(CEntityBase* ent);
 
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
 
 private:
+		template<typename T, typename... Targs>
+		struct RegisterEntToSubsystem_Helper;
+
+		template<typename T>
+		struct RegisterEntToSubsystem_Helper<T>
+		{
+			static void exec(CGameWorld* pThis, CEntityBase* ent)
+			{
+				auto pSubsystem = pThis->GetSubsystem<T>();
+				if (!pSubsystem) pThis->CreateSubsystem<T>();
+				pSubsystem->RegisterEntity(ent);
+			}
+		};
+		template<typename T, typename... Targs>
+		struct RegisterEntToSubsystem_Helper
+		{
+			static void exec(CGameWorld* pThis, CEntityBase* ent)
+			{
+				RegisterEntToSubsystem_Helper<T>::exec(pThis, ent);
+				RegisterEntToSubsystem_Helper<Targs...>::exec(pThis, ent);
+			}
+		};
+
 	ui32 GenerateNextAvailableEID();
 
 	std::unordered_map<const std::type_info*, std::unique_ptr<IGameSubsystem>> m_gameSystems;

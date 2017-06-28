@@ -23,6 +23,8 @@ public:
 	CKeyInputEvent(ui32 ui32KeyNum, ui32 ui32Modifiers, ButtonState keyState)
 	{
 		m_ui32KeyNum = ui32KeyNum;
+		m_ui32Modifiers = ui32Modifiers;
+		m_keyState = keyState;
 
 	}
 	~CKeyInputEvent() {}

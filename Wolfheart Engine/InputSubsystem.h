@@ -15,5 +15,5 @@ public:
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
 
 private:
-	std::queue<CKeyInputEvent*> m_aggregatedInput;
+	std::queue<CKeyInputEvent> m_aggregatedInput;
 };

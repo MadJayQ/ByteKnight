@@ -25,8 +25,8 @@ void CInputSubsystem::Tick(float flDeltaTime)
 		{
 			while (!m_aggregatedInput.empty())
 			{
-				auto pInputEvent = m_aggregatedInput.front();
-				pInputControllerComponent->ProcessInput(pInputEvent);
+				auto pInputEvent = m_aggregatedInput.back();
+				pInputControllerComponent->ProcessInput(&pInputEvent);
 				m_aggregatedInput.pop();
 			}
 		}
@@ -36,8 +36,8 @@ void CInputSubsystem::Tick(float flDeltaTime)
 
 void CInputSubsystem::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
-	if (dynamic_cast<CKeyInputEvent*>(e))
+	if (CKeyInputEvent* pEvent = dynamic_cast<CKeyInputEvent*>(e))
 	{
-		m_aggregatedInput.emplace(e);
+		m_aggregatedInput.emplace(*pEvent);
 	}
 }
