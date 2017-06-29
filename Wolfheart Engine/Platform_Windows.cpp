@@ -1,6 +1,7 @@
 #include "Platform_Windows.h"
 #include "DummyEvent.h"
 #include "InputEvent.h"
+#include "Defines.h"
 
 #include <cassert>
 #include <iostream>
@@ -8,6 +9,8 @@
 #define WINSTYLE (WS_OVERLAPPEDWINDOW ^ (WS_THICKFRAME | WS_MAXIMIZEBOX))
 
 CWin32GameWindow* This = NULL;
+
+GLOBAL bool g_bInitialized = false;
 
 namespace Window
 {
@@ -117,6 +120,9 @@ CWin32GameWindow::CWin32GameWindow(HINSTANCE hInstance, const char* szWindowName
 		512
 	);
 
+	m_bInitialized = true;
+	g_bInitialized = true;
+
 }
 
 CWin32GameWindow::~CWin32GameWindow()
@@ -165,7 +171,11 @@ LRESULT CWin32GameWindow::MessageProcedureLoop(HWND hwnd, UINT uMsg, WPARAM wPar
 		break;
 
 	}
-	default: return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	default: break;
+	}
+	if (g_bInitialized)
+	{
+		This->UpdateInternalKeystate();
 	}
 
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -282,7 +292,13 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 	keyData->m_correctedValues.m_ui32VirtualKey = ui32VirtualKey;
 	keyData->m_correctedValues.m_ui32ScanCode = ui32ScanCode;
 	
-	const bool pressed = ((ui32Flags & RI_KEY_BREAK) == 0);
+	const bool released = ((ui32Flags & RI_KEY_BREAK) != 0);
+
+	if (released)
+	{
+		std::cout << "RELEASED!" << std::endl;
+	}
+
 	ui32 ui32KeyCode = (ui32ScanCode << 16) | (e0 << 24);
 
 	char buffer[512] = {};
@@ -294,7 +310,7 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 
 	keyData->m_extendedData.m_szKeyName = buffer;
 	keyData->m_extendedData.m_ui32KeyCode = ui32KeyCode;
-	keyData->m_extendedData.m_bPressed = pressed;
+	keyData->m_extendedData.m_bPressed = !released;
 	keyData->m_extendedData.m_bModifierKey = bIsModifier;
 
 	return true;
@@ -329,13 +345,11 @@ void CWin32GameWindow::FireKeyEvent(MappedVirtualKey_t* keyData)
 		if (m_bCurrentKeyState[VK_LCONTROL]) { ui32KeyModifers |= MODIFIER_LCNTRL; }
 		if (m_bCurrentKeyState[VK_LMENU]) { ui32KeyModifers |= MODIFIER_LALT; }
 
-		if (m_bCurrentKeyState[ui32VirtualKey])
-
-			e = new CKeyInputEvent(
-				ui32VirtualKey,
-				ui32KeyModifers,
-				buttonState
-			);
+		e = new CKeyInputEvent(
+			ui32VirtualKey,
+			ui32KeyModifers,
+			buttonState
+		);
 
 	}
 	else if (ui32VirtualKey == VK_LSHIFT || ui32VirtualKey == VK_RSHIFT)
@@ -354,6 +368,14 @@ void CWin32GameWindow::FireKeyEvent(MappedVirtualKey_t* keyData)
 
 
 
+}
+
+void CWin32GameWindow::UpdateInternalKeystate()
+{
+	if (m_bInitialized)
+	{
+		memcpy((void*)m_bPreviousKeyState, (void*)m_bCurrentKeyState, 512);
+	}
 }
 
 SDL_Window * Platform::Windows::Windows_CreateSDLWindow(CWin32GameWindow* window)

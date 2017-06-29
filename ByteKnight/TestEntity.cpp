@@ -36,5 +36,5 @@ CTestEntity::~CTestEntity()
 
 void CTestEntity::InputAxis(CVector3 vecNormalizedInput)
 {
-	std::cout << "Swag\n";
+	m_pMovementComponent->SetVelocity(v3(100.f * vecNormalizedInput._x, 0.f, 0.f));
 }

@@ -48,6 +48,7 @@ private:
 	bool CreateRawInputDevices();
 	bool MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey_t* keyData);
 	void FireKeyEvent(MappedVirtualKey_t* keyData);
+	void UpdateInternalKeystate();
 
 private:
 	HINSTANCE m_hInstance; //This is our programs handle
@@ -60,7 +61,7 @@ private:
 
 	bool m_bPreviousKeyState[512];
 	bool m_bCurrentKeyState[512];
-
+	bool m_bInitialized = false;
 };
 
 
