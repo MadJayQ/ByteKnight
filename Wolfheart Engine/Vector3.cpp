@@ -58,6 +58,24 @@ CVector3 CVector3::operator/(const CVector3& other)
 	);
 }
 
+CVector3 CVector3::operator*(const float & other)
+{
+	return CVector3(
+		this->_x * other,
+		this->_y * other,
+		this->_z * other
+	);
+}
+
+CVector3 CVector3::operator/(const float & other)
+{
+	return CVector3(
+		this->_x / other,
+		this->_y / other,
+		this->_z / other
+	);
+}
+
 void CVector3::operator+=(const CVector3& other)
 {
 	this->_x += other._x;

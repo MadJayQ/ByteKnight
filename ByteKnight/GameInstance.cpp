@@ -18,7 +18,10 @@
 #include <MovementSubsystem.h>
 #include <InputSubsystem.h>
 
+#include <InputMapping.h>
+
 #include "TestEntity.h"
+#include "Defines.h"
 
 constexpr const char* g_szBuildDate = __DATE__;
 constexpr const char* g_szBuildTime = __TIME__;
@@ -86,6 +89,7 @@ void GameInstance::Initialize()
 		szNameBuffer, 
 		g_szClassName
 	);
+
 	m_pGameWindow->RegisterObserver(this);
 	m_pGraphicsDevice = std::make_unique<CGraphicsDevice>(
 		Platform::Windows::Windows_CreateSDLWindow(m_pGameWindow.get()),
@@ -167,4 +171,12 @@ void GameInstance::Render()
 void GameInstance::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
 
+}
+
+void GameInstance::CreateInputMapping()
+{
+	CInputMapping::Instance()->CreateInputAxis(0x44, KBMOVEMENTX, v3(1.f, 0.f, 0.f));
+	CInputMapping::Instance()->CreateInputAxis(0x41, KBMOVEMENTX, v3(-1.f, 0.f, 0.f));
+	CInputMapping::Instance()->CreateInputAxis(0x57, KBMOVEMENTY, v3(0.f, 1.f, 0.f));
+	CInputMapping::Instance()->CreateInputAxis(0x53, KBMOVEMENTY, v3(0.f, -1.f, 0.f));
 }

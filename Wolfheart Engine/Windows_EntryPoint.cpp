@@ -30,6 +30,7 @@ INT WINAPI WinMain(HINSTANCE hInstance,
 	{
 		return -1;
 	}
+	pEnginePtr->CreateInputMapping();
 	pEnginePtr->Initialize();
 	int returnCode = pEnginePtr->EngineLoop();
 	SDL_Quit();

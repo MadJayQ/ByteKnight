@@ -159,6 +159,9 @@
     <ClInclude Include="InputControllerComponent.h">
       <Filter>Header Files\Engine\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="InputMapping.h">
+      <Filter>Header Files\Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -225,7 +228,10 @@
       <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="InputControllerComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMapping.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

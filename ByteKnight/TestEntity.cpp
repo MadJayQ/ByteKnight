@@ -7,6 +7,8 @@
 #include <GameWorld.h>
 
 #include <iostream>
+
+#include "Defines.h"
 CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBase(ui32EntityID, pGameWorld)
 {
 	m_pRenderComponent = AddComponent<C2DRenderComponent>();
@@ -14,7 +16,8 @@ CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBas
 	m_pPositionComponent = AddComponent<CPositionComponent>();
 	m_pInputComponent = AddComponent<CInputControllerComponent>();
 
-	m_pInputComponent->CreateAxisBinding("MOVEMENT_LEFTRIGHT", this, &CTestEntity::InputAxis);
+	m_pInputComponent->CreateAxisBinding(KBMOVEMENTX, this, &CTestEntity::InputAxis);
+	m_pInputComponent->CreateAxisBinding(KBMOVEMENTY, this, &CTestEntity::InputAxis);
 
 	pGameWorld->RegisterEntityToSubsystems<CRenderSubsystem, CMovementSubsystem, CInputSubsystem>(this);
 
@@ -36,5 +39,7 @@ CTestEntity::~CTestEntity()
 
 void CTestEntity::InputAxis(CVector3 vecNormalizedInput)
 {
-	m_pMovementComponent->SetVelocity(v3(100.f * vecNormalizedInput._x, 0.f, 0.f));
+	m_pMovementComponent->SetVelocity(
+		vecNormalizedInput * 250.f
+	);
 }

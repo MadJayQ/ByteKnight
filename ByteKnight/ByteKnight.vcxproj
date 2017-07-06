@@ -121,6 +121,7 @@
     <ClCompile Include="TestEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="GameInstance.h" />
     <ClInclude Include="TestEntity.h" />
   </ItemGroup>

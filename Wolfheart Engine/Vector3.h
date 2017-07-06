@@ -14,6 +14,9 @@ public:
 	CVector3 operator*(const CVector3& other);
 	CVector3 operator/(const CVector3& other);
 
+	CVector3 operator*(const float& other);
+	CVector3 operator/(const float& other);
+
 	void operator+=(const CVector3& other);
 	void operator-=(const CVector3& other);
 	void operator*=(const CVector3& other);

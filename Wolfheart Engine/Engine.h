@@ -17,6 +17,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 
+	virtual void CreateInputMapping() = 0; //Change this to have engine default input mappings??
 
 protected:
 	bool m_bLooping = false;
