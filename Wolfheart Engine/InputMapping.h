@@ -23,6 +23,8 @@ public:
 	void CreateInputAxis(ui32 ui32KeyCode, const char* szAxisName, CVector3 vecAxisMultiplier);
 	InputAxisPair* GetInputAxis(ui32 ui32KeyCode);
 
+	bool HasInputAxis(ui32 ui32KeyCode);
+
 private:
 	CInputMapping() {}
 

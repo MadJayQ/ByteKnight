@@ -2,8 +2,10 @@
 #include "GameSubsystem.h"
 #include "EventObserver.h"
 #include "InputEvent.h"
+#include "InputMapping.h"
 
 #include <queue>
+#include <set>
 
 class CInputSubsystem : public IGameSubsystem, public IEventObserver
 {
@@ -16,4 +18,5 @@ public:
 
 private:
 	std::queue<CKeyInputEvent> m_aggregatedInput;
+	std::set<ui32> m_pressedAxisKeys;
 };

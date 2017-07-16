@@ -1,6 +1,8 @@
 #pragma once
 #include "EntityComponent.h"
 #include "EngineMath.h"
+#include "InputMapping.h"
+#include "InputEvent.h"
 
 #include <functional>
 #include <unordered_map>
@@ -18,6 +20,10 @@ public:
 	~CInputControllerComponent();
 
 	void ProcessInput(CKeyInputEvent* pInputEvent);
+	void ProcessKeyInputAxis(ui32 ui32AxisKey);
+
+	void AddMovementInput(CVector3 vecInput);
+	CVector3 ConsumeInputVector();
 
 	template<typename FunctionPtr, typename ObjectPtr>
 	void CreateAxisBinding(const char* szBindingName, ObjectPtr pObject, FunctionPtr pFunc)
@@ -28,4 +34,8 @@ public:
 
 private:
 	AxisMap m_axisMap;
+	CVector3 m_vecAccumulatedInput;
+	CVector3 m_vecLastAccumulatedInput;
+
+	ui32 m_ui32MovementFlags;
 };

@@ -2,6 +2,8 @@
 
 #include "Vector3.h"
 
+#include <algorithm>
+
 typedef unsigned long long ui64;
 typedef signed long long i64;
 typedef unsigned int ui32;
@@ -18,5 +20,9 @@ namespace Math
 {
 	float Lerp(float f0, float f1, float t);
 	v3 Lerp(v3 v0, v3 v1, float t);
+	template<class T>
+	const T& clamp(const T& x, const T& upper, const T& lower) {
+		return std::min(upper, std::max(x, lower));
+	}
 }
 

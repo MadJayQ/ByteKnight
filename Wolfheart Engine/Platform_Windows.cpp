@@ -294,11 +294,6 @@ bool CWin32GameWindow::MapCorrectVirtualKey(void* pInputBuffer, MappedVirtualKey
 	
 	const bool released = ((ui32Flags & RI_KEY_BREAK) != 0);
 
-	if (released)
-	{
-		std::cout << "RELEASED!" << std::endl;
-	}
-
 	ui32 ui32KeyCode = (ui32ScanCode << 16) | (e0 << 24);
 
 	char buffer[512] = {};
@@ -322,16 +317,16 @@ void CWin32GameWindow::FireKeyEvent(MappedVirtualKey_t* keyData)
 	ui32 ui32VirtualKey = keyData->m_correctedValues.m_ui32VirtualKey;
 	m_bCurrentKeyState[ui32VirtualKey] = keyData->m_extendedData.m_bPressed;
 
-	ButtonState buttonState;
+	ButtonState::State buttonState;
 	ui32 ui32KeyModifers = 0;
 
 	CKeyInputEvent* e = NULL;
 
-	buttonState = ButtonState::KeyState_Released;
+	buttonState = ButtonState::State::KeyState_Released;
 
 	if (m_bCurrentKeyState[ui32VirtualKey] && m_bPreviousKeyState[ui32VirtualKey])
 	{
-		buttonState = ButtonState::KeyState_Held;
+		buttonState = ButtonState::State::KeyState_Held;
 	}
 
 	if (m_bCurrentKeyState[ui32VirtualKey] && !m_bPreviousKeyState[ui32VirtualKey])

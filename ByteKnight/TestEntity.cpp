@@ -28,6 +28,8 @@ CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBas
 		)
 	);
 
+	m_pMovementComponent->SetMaxSpeed(500.f);
+
 	//We want to interpolate this entity
 	m_bInterpolate = true; 
 }
@@ -39,7 +41,5 @@ CTestEntity::~CTestEntity()
 
 void CTestEntity::InputAxis(CVector3 vecNormalizedInput)
 {
-	m_pMovementComponent->SetVelocity(
-		vecNormalizedInput * 250.f
-	);
+	m_pInputComponent->AddMovementInput(vecNormalizedInput);
 }

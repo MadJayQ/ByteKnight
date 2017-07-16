@@ -13,6 +13,11 @@ InputAxisPair* CInputMapping::GetInputAxis(ui32 ui32KeyCode)
 	return (HasKeyMapping(ui32KeyCode) ? &m_inputMap[ui32KeyCode] : nullptr);
 }
 
+bool CInputMapping::HasInputAxis(ui32 ui32KeyCode)
+{
+	return (GetInputAxis(ui32KeyCode) != NULL);
+}
+
 bool CInputMapping::HasKeyMapping(ui32 ui32KeyCode)
 {
 	auto itr = m_inputMap.find(ui32KeyCode);

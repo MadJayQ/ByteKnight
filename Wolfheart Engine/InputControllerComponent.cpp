@@ -1,6 +1,7 @@
 #include "InputControllerComponent.h"
 #include "InputEvent.h"
 #include "InputMapping.h"
+#include "EngineMath.h"
 
 CInputControllerComponent::CInputControllerComponent()
 {
@@ -12,11 +13,6 @@ CInputControllerComponent::~CInputControllerComponent()
 
 }
 
-bool KeystateDown(CKeyInputEvent* pEvent)
-{
-	return (pEvent->GetKeyState() == ButtonState::KeyState_Pressed 
-		   || pEvent->GetKeyState() == ButtonState::KeyState_Held);
-}
 
 void CInputControllerComponent::ProcessInput(CKeyInputEvent* pInputEvent)
 {
@@ -31,7 +27,6 @@ void CInputControllerComponent::ProcessInput(CKeyInputEvent* pInputEvent)
 			pBindingFunc(vecInputAxis);
 		}
 	}
-	*/
 	ui32 ui32KeyCode = pInputEvent->GetKeyNum();
 	auto pInputMapping = CInputMapping::Instance()->GetInputAxis(ui32KeyCode);
 	if (pInputMapping == NULL) return;
@@ -41,4 +36,27 @@ void CInputControllerComponent::ProcessInput(CKeyInputEvent* pInputEvent)
 	{
 		pBindingFunc(vecInputAxis);
 	}
+
+	*/
+}
+
+void CInputControllerComponent::ProcessKeyInputAxis(ui32 ui32AxisKey)
+{
+	auto pInputMapping = CInputMapping::Instance()->GetInputAxis(ui32AxisKey);
+	auto pBindingFunc = m_axisMap[pInputMapping->first];
+	if (pBindingFunc)
+	{
+		pBindingFunc(pInputMapping->second);
+	}
+}
+void CInputControllerComponent::AddMovementInput(CVector3 vecInput)
+{
+	m_vecAccumulatedInput += vecInput;
+}
+
+CVector3 CInputControllerComponent::ConsumeInputVector()
+{
+	m_vecLastAccumulatedInput = m_vecAccumulatedInput;
+	m_vecAccumulatedInput = CVector3(0.f, 0.f, 0.f);
+	return m_vecLastAccumulatedInput;
 }

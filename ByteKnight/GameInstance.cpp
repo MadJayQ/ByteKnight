@@ -105,7 +105,7 @@ void GameInstance::Initialize()
 	*/
 
 	g_pGlobalVars = std::make_unique<CGlobalVars>();
-	g_pGlobalVars->ui32Tickrate = 64;
+	g_pGlobalVars->ui32Tickrate = 60;
 	g_pGlobalVars->flTickInterval = 1.f / static_cast<float>(g_pGlobalVars->ui32Tickrate);
 	g_pGameWorld = std::make_unique<CGameWorld>();
 	g_pTimer = std::make_unique<CTimer>();
@@ -177,6 +177,6 @@ void GameInstance::CreateInputMapping()
 {
 	CInputMapping::Instance()->CreateInputAxis(0x44, KBMOVEMENTX, v3(1.f, 0.f, 0.f));
 	CInputMapping::Instance()->CreateInputAxis(0x41, KBMOVEMENTX, v3(-1.f, 0.f, 0.f));
-	CInputMapping::Instance()->CreateInputAxis(0x57, KBMOVEMENTY, v3(0.f, 1.f, 0.f));
-	CInputMapping::Instance()->CreateInputAxis(0x53, KBMOVEMENTY, v3(0.f, -1.f, 0.f));
+	CInputMapping::Instance()->CreateInputAxis(0x57, KBMOVEMENTY, v3(0.f, -1.f, 0.f));
+	CInputMapping::Instance()->CreateInputAxis(0x53, KBMOVEMENTY, v3(0.f, 1.f, 0.f));
 }

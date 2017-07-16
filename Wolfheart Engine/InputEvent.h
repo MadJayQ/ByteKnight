@@ -6,11 +6,20 @@
 #define MODIFIER_LCNTRL 1 << 1
 #define MODIFIER_LALT   1 << 2
 
-enum ButtonState
+class ButtonState
 {
-	KeyState_Pressed = 0,
-	KeyState_Released,
-	KeyState_Held
+public:
+	enum State
+	{
+		KeyState_Pressed = 0,
+		KeyState_Released,
+		KeyState_Held
+	};
+
+	static bool Pressed(const ButtonState::State& state)
+	{
+		return (state == ButtonState::KeyState_Pressed || state == KeyState_Held);
+	}
 };
 
 /*
@@ -20,7 +29,7 @@ enum ButtonState
 class CKeyInputEvent : public IEvent
 {
 public:
-	CKeyInputEvent(ui32 ui32KeyNum, ui32 ui32Modifiers, ButtonState keyState)
+	CKeyInputEvent(ui32 ui32KeyNum, ui32 ui32Modifiers, ButtonState::State keyState)
 	{
 		m_ui32KeyNum = ui32KeyNum;
 		m_ui32Modifiers = ui32Modifiers;
@@ -31,12 +40,12 @@ public:
 
 	ui32 GetModifiers() const { return m_ui32Modifiers; }
 	ui32 GetKeyNum() const { return m_ui32KeyNum; }
-	ButtonState GetKeyState() const { return m_keyState; }
+	ButtonState::State GetKeyState() const { return m_keyState; }
 
 private:
 	ui32 m_ui32KeyNum;
 	ui32 m_ui32Modifiers;
-	ButtonState m_keyState;
+	ButtonState::State m_keyState;
 };
 
 
