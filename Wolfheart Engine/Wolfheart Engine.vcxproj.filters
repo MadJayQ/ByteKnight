@@ -162,6 +162,15 @@
     <ClInclude Include="InputMapping.h">
       <Filter>Header Files\Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Header Files\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSubsystem.h">
+      <Filter>Header Files\Engine\Subsystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -232,6 +241,12 @@
     </ClCompile>
     <ClCompile Include="InputMapping.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Source Files\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSubsystem.cpp">
+      <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -104,6 +104,8 @@ void GameInstance::Initialize()
 	);
 	*/
 
+
+
 	g_pGlobalVars = std::make_unique<CGlobalVars>();
 	g_pGlobalVars->ui32Tickrate = 60;
 	g_pGlobalVars->flTickInterval = 1.f / static_cast<float>(g_pGlobalVars->ui32Tickrate);
@@ -117,6 +119,9 @@ void GameInstance::Initialize()
 	m_pGameWindow->RegisterObserver(
 		g_pGameWorld->CreateSubsystem<CInputSubsystem>()
 	);
+
+	//Remove this later
+	LoadDefaultBackground();
 	auto ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(15.f, 15.f, 0.f));
 
 }
@@ -179,4 +184,20 @@ void GameInstance::CreateInputMapping()
 	CInputMapping::Instance()->CreateInputAxis(0x41, KBMOVEMENTX, v3(-1.f, 0.f, 0.f));
 	CInputMapping::Instance()->CreateInputAxis(0x57, KBMOVEMENTY, v3(0.f, -1.f, 0.f));
 	CInputMapping::Instance()->CreateInputAxis(0x53, KBMOVEMENTY, v3(0.f, 1.f, 0.f));
+}
+
+void GameInstance::LoadDefaultBackground()
+{
+	auto ent = g_pGameWorld->SpawnEntity<CEntityBase>();
+	auto pPositionComponent = ent->AddComponent<CPositionComponent>();
+	pPositionComponent->SetPosition(v3(0.f, 0.f, 0.f));
+	auto pRenderComponent = ent->AddComponent<C2DRenderComponent>();
+	pRenderComponent->SetSprite(
+		new CSprite(
+			"Assets\\GameAssets\\Development\\dev_background.png",
+			SPRITE_FILE_TYPE::SPRITE_FILE_TYPE_PNG
+		)
+	);
+
+	g_pGameWorld->GetSubsystem<CRenderSubsystem>()->RegisterEntity(ent);
 }

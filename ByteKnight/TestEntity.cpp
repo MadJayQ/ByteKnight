@@ -31,7 +31,7 @@ CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBas
 	m_pMovementComponent->SetMaxSpeed(500.f);
 
 	//We want to interpolate this entity
-	m_bInterpolate = true; 
+	m_bInterpolate = true;
 }
 
 CTestEntity::~CTestEntity()

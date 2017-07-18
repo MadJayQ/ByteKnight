@@ -52,7 +52,7 @@ public:
 	bool ShouldInterpolate() const { return m_bInterpolate; }
 
 protected:
-	bool m_bInterpolate;
+	bool m_bInterpolate = false;
 private:
 	ui32 m_ui32EntityID;
 	CGameWorld* m_pGameWorld;

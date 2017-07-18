@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector3.h"
+#include "Rectangle.h"
 
 #include <algorithm>
 
@@ -15,6 +16,7 @@ typedef signed char i8;
 
 
 typedef CVector3 v3;
+typedef CRectangle Rect;
 
 namespace Math
 {

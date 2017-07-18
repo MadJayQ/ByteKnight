@@ -72,6 +72,10 @@
     <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Debug;$(LibraryPath)</LibraryPath>
     <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,6 +119,8 @@
   <ItemGroup>
     <ClInclude Include="2DRenderComponent.h" />
     <ClInclude Include="AssetLoader.h" />
+    <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CollisionSubsystem.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DeviceNotify.h" />
     <ClInclude Include="DummyEvent.h" />
@@ -139,6 +145,7 @@
     <ClInclude Include="ObjectMetadata.h" />
     <ClInclude Include="Platform_Windows.h" />
     <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="RenderSubsystem.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextureUtils.h" />
@@ -148,6 +155,8 @@
   <ItemGroup>
     <ClCompile Include="2DRenderComponent.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="CollisionSubsystem.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Entity.cpp" />

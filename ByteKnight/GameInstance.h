@@ -19,6 +19,8 @@ public:
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
 	virtual void CreateInputMapping() override;
 
+	void LoadDefaultBackground();
+
 private:
 	std::unique_ptr<CWin32GameWindow> m_pGameWindow;
 	std::unique_ptr<CGraphicsDevice> m_pGraphicsDevice;
