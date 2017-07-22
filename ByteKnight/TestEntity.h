@@ -4,6 +4,7 @@
 #include <MovementComponent.h>
 #include <PositionComponent.h>
 #include <InputControllerComponent.h>
+#include <CollisionComponent.h>
 
 #include <EngineMath.h>
 
@@ -21,4 +22,5 @@ private:
 	CMovementComponent* m_pMovementComponent;
 	CPositionComponent* m_pPositionComponent;
 	CInputControllerComponent* m_pInputComponent;
+	CCollisionComponent* m_pCollisionComponent;
 };

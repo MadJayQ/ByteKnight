@@ -18,6 +18,7 @@ INT WINAPI WinMain(HINSTANCE hInstance,
 	int nCmdShow
 )
 {
+
 #define SDL_EVENTS_DISABLED 1
 #ifdef GAME_INSTANCE
 	UNREFERENCED_PARAMETER(hPrevInstance);
@@ -31,12 +32,14 @@ INT WINAPI WinMain(HINSTANCE hInstance,
 		return -1;
 	}
 	pEnginePtr->CreateInputMapping();
+
 	pEnginePtr->Initialize();
 	int returnCode = pEnginePtr->EngineLoop();
 	SDL_Quit();
 	return returnCode;
 #endif
 	return 0;
+	
 }
 
 

@@ -17,10 +17,15 @@ public:
 	void SetVelocity(CVector3 vecVelocity);
 	void SetAccelerates(bool bAccelerates) { m_bAccelerates = bAccelerates; }
 
+	bool Accelerates() const { return m_bAccelerates; }
+
 	void SetMaxSpeed(float flMaxSpeed) { m_flMaxSpeed = flMaxSpeed; }
 	float GetMaxSpeed() const { return m_flMaxSpeed; }
 
 	float GetCurrentSpeed() const { return m_flSpeed; }
+
+	CVector3 GetVelocity() const { return m_vecVelocity; }
+	CVector3 GetAcceleration() const { return m_vecAcceleration; }
 
 private:
 	float m_flSpeed;

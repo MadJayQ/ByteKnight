@@ -26,8 +26,11 @@
 constexpr const char* g_szBuildDate = __DATE__;
 constexpr const char* g_szBuildTime = __TIME__;
 
-const char* g_szVersion = "Windows Pre-Alpha - v1.0";
+const char* g_szVersion = "Windows Pre-Alpha - v1.0.1a";
 const char* g_szClassName = "CLASS_ByteKnight";
+
+
+CEntityBase* ent = 0;
 
 
 MSG g_lastMessage = MSG{ 0 };
@@ -97,15 +100,7 @@ void GameInstance::Initialize()
 	);
 	m_pGraphicsDevice->CreateRenderer();
 	g_pAssetLoader = std::make_unique<CAssetLoader>(m_pGraphicsDevice.get());
-	/*
-	g_pTestSprite = std::make_unique<CSprite>(
-		"Assets\\GameAssets\\Development\\test_background.png", 
-		SPRITE_FILE_TYPE::SPRITE_FILE_TYPE_PNG
-	);
-	*/
-
-
-
+	
 	g_pGlobalVars = std::make_unique<CGlobalVars>();
 	g_pGlobalVars->ui32Tickrate = 60;
 	g_pGlobalVars->flTickInterval = 1.f / static_cast<float>(g_pGlobalVars->ui32Tickrate);
@@ -116,14 +111,16 @@ void GameInstance::Initialize()
 
 	g_pGameWorld->CreateSubsystem<CRenderSubsystem>();
 	g_pGameWorld->CreateSubsystem<CMovementSubsystem>();
+	
 	m_pGameWindow->RegisterObserver(
 		g_pGameWorld->CreateSubsystem<CInputSubsystem>()
 	);
+	
 
 	//Remove this later
 	LoadDefaultBackground();
-	auto ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(15.f, 15.f, 0.f));
-
+	ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(391.f, 318.f, 0.f));
+	ent->GetComponent<CMovementComponent>()->SetVelocity(v3(500.f, 0.f, 0.f));
 }
 
 int GameInstance::EngineLoop()
@@ -139,6 +136,7 @@ int GameInstance::EngineLoop()
 		while (SDL_PollEvent(&e) != 0) {}
 		EngineInstance::EngineLoop();
 		m_bLooping = g_lastMessage.message != WM_QUIT;
+		Sleep(10);
 	}
 	return 0;
 }
@@ -163,11 +161,32 @@ void GameInstance::Update()
 
 	g_pGlobalVars->flInterpolation = flAccumulatedTime / flTargetTickTime;
 	g_pGlobalVars->flCurrentTime = flCurrentTime;
+	/*
+	v3 vecPos;
+	if (ent)
+	{
+		vecPos = ent->GetComponent<CPositionComponent>()->GetPositon();
+		auto pMovementComponent = ent->GetComponent<CMovementComponent>();
+		if (vecPos._x < 0)
+		{
+			pMovementComponent->SetVelocity(
+				v3(500.f, 0.f, 0.f)
+			);
+		}
+		else if (vecPos._x > 1280 - 32)
+		{
+			pMovementComponent->SetVelocity(
+				v3(-500.f, 0.f, 0.f)
+			);
+		}
+	}
+	*/
 }
 
 void GameInstance::Render()
 {
 	//For now just do our rendering ASAP 
+	
 	m_pGraphicsDevice->Clear();
 	g_pGameWorld->GetSubsystem<CRenderSubsystem>()->Render(m_pGraphicsDevice.get());
 	m_pGraphicsDevice->Present();

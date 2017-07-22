@@ -177,7 +177,6 @@ LRESULT CWin32GameWindow::MessageProcedureLoop(HWND hwnd, UINT uMsg, WPARAM wPar
 	{
 		This->UpdateInternalKeystate();
 	}
-
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 

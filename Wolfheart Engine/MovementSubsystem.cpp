@@ -3,6 +3,8 @@
 #include "PositionComponent.h"
 #include "MovementComponent.h"
 #include "InputControllerComponent.h"
+#include "CollisionComponent.h"
+#include "GameWorld.h"
 
 CMovementSubsystem::CMovementSubsystem()
 {
@@ -33,11 +35,22 @@ void CMovementSubsystem::Tick(float flDeltaTime)
 		}
 
 		v3 vecOldPosition = pPositionComponent->GetPositon();
-		pMovementComponent->ApplyMovement(
-			pPositionComponent, 
-			flDeltaTime
-		);
 
+		//This is the insertion point for our collision-system
+		if (CCollisionComponent* pCollisionComponent = ent->GetComponent<CCollisionComponent>())
+		{
+			ent->GetGameWorld()->GetCollisionWorld()->ApplyMovementWithCollision(
+				ent,
+				flDeltaTime
+			);
+		}
+		else
+		{
+			pMovementComponent->ApplyMovement(
+				pPositionComponent,
+				flDeltaTime
+				);
+		}
 		pPositionComponent->SetOldPosition(vecOldPosition);
 
 	}

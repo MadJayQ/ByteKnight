@@ -27,7 +27,7 @@ public:
 
 	Rect GetCollisionRect() const { return m_collisionRect; }
 
-	virtual void OnCollision(CEntityBase* self, CEntityBase* other) = 0;
+	virtual void OnCollision(CEntityBase* self, CEntityBase* other) {}
 
 private:
 	ECollisionType m_collisionType;

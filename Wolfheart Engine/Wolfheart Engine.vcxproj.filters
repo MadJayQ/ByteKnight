@@ -171,6 +171,9 @@
     <ClInclude Include="CollisionSubsystem.h">
       <Filter>Header Files\Engine\Subsystem</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionWorld.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows_EntryPoint.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="CollisionSubsystem.cpp">
       <Filter>Source Files\Engine\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionWorld.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

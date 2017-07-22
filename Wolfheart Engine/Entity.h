@@ -51,6 +51,8 @@ public:
 	ui32 GetEntityID() const { return m_ui32EntityID; }
 	bool ShouldInterpolate() const { return m_bInterpolate; }
 
+	CGameWorld* GetGameWorld() const { return m_pGameWorld; }
+
 protected:
 	bool m_bInterpolate = false;
 private:
