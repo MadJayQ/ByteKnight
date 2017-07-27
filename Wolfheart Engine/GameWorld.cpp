@@ -6,6 +6,7 @@
 CGameWorld::CGameWorld()
 {
 	m_pCollisionWorld = new CCollisionWorld();
+	/*
 	m_pCollisionWorld->SetBoundingRectangle(
 		CRectangle(
 			141,
@@ -14,6 +15,7 @@ CGameWorld::CGameWorld()
 			395
 		)
 	);
+	*/
 }
 
 CGameWorld::~CGameWorld()

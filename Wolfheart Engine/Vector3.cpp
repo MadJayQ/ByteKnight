@@ -2,6 +2,8 @@
 
 #include <cassert>
 
+CVector3 CVector3::Zero = CVector3(0.f, 0.f, 0.f);
+
 CVector3::CVector3(float x, float y, float z) :
 	_x(x),
 	_y(y),

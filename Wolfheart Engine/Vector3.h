@@ -28,5 +28,7 @@ public:
 
 	bool IsZero();
 
+	static CVector3 Zero;
+
 	float _x, _y, _z;
 };

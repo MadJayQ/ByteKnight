@@ -132,11 +132,14 @@ int GameInstance::EngineLoop()
 			TranslateMessage(&g_lastMessage);
 			DispatchMessage(&g_lastMessage);
 		}
-		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0) {}
-		EngineInstance::EngineLoop();
-		m_bLooping = g_lastMessage.message != WM_QUIT;
-		Sleep(10);
+		else
+		{
+			SDL_Event e;
+			while (SDL_PollEvent(&e) != 0) {}
+			EngineInstance::EngineLoop();
+			m_bLooping = g_lastMessage.message != WM_QUIT;
+			Sleep(10);
+		}
 	}
 	return 0;
 }

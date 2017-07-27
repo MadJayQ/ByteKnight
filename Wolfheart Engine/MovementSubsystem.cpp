@@ -39,10 +39,12 @@ void CMovementSubsystem::Tick(float flDeltaTime)
 		//This is the insertion point for our collision-system
 		if (CCollisionComponent* pCollisionComponent = ent->GetComponent<CCollisionComponent>())
 		{
+			/*
 			ent->GetGameWorld()->GetCollisionWorld()->ApplyMovementWithCollision(
 				ent,
 				flDeltaTime
 			);
+			*/
 		}
 		else
 		{
