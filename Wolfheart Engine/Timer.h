@@ -4,8 +4,9 @@
 #include "ObjectMetadata.h"
 #include <chrono>
 #include <ratio>
+#include <memory>
 
-typedef std::chrono::time_point<std::chrono::steady_clock> tickperiod_t;
+typedef std::chrono::time_point<std::chrono::steady_clock, std::chrono::steady_clock::duration> tickperiod_t;
 
 typedef std::ratio<1i64, 1i64> Seconds;
 typedef std::micro Microseconds;
@@ -63,9 +64,9 @@ public:
 private:
 	bool m_bTicking;
 
-	tickperiod_t m_startPeriod;
+
 
 	ui64 m_ui64LastTime = 0;
 	ui32 m_ui32FrameCount = 0;
 	ui32 m_ui32FramesPerSecond = 0;
-};
+}; extern std::unique_ptr<CTimer> g_pTimer;

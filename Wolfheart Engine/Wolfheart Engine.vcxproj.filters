@@ -67,12 +67,6 @@
     <Filter Include="Source Files\Engine\Subsystems">
       <UniqueIdentifier>{219078dd-1c1c-450a-98ab-4da009b61f90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Util">
-      <UniqueIdentifier>{fbad25fd-0274-4a9e-868c-b20ab0ee1b18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine\Util">
-      <UniqueIdentifier>{1c657f45-f532-4e92-8cab-f501885e30cc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Platform_Windows.h">
@@ -177,14 +171,14 @@
     <ClInclude Include="CollisionSubsystem.h">
       <Filter>Header Files\Engine\Subsystem</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionWorld.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AABB.h">
+    <ClInclude Include="UnitConversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitMetrics.h">
       <Filter>Header Files\Engine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Header Files\Engine\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,11 +257,8 @@
     <ClCompile Include="CollisionSubsystem.cpp">
       <Filter>Source Files\Engine\Subsystems</Filter>
     </ClCompile>
-    <ClCompile Include="AABB.cpp">
+    <ClCompile Include="UnitMetrics.cpp">
       <Filter>Source Files\Engine\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionWorld.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

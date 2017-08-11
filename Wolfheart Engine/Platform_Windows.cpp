@@ -2,7 +2,7 @@
 #include "DummyEvent.h"
 #include "InputEvent.h"
 #include "Defines.h"
-
+#include "Timer.h"
 #include <cassert>
 #include <iostream>
 
@@ -140,10 +140,8 @@ LRESULT CWin32GameWindow::MessageProcedureLoop(HWND hwnd, UINT uMsg, WPARAM wPar
 	}
 	case WM_DESTROY:
 	{
-		std::cout << "[DEBUG]: DUMMY EVENT POSTED FROM OS LOOP" << std::endl;
-		This->EventNotify(0, new CDummyEvent());
 		PostQuitMessage(0);
-		break;
+		return 0;;
 	}
 	case WM_INPUT:
 	{

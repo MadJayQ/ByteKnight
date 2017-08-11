@@ -22,14 +22,9 @@ public:
 	void SetCollisionType(ECollisionType type) { m_collisionType = type; }
 	ECollisionType GetCollisionType() const{ return m_collisionType; }
 
-	void SetCollisionRect(Rect collisionRect) { m_collisionRect = collisionRect; }
-	void SetCollisionRect(int x, int y, int w, int h) { m_collisionRect = Rect{ x, y, w, h }; }
-
-	Rect GetCollisionRect() const { return m_collisionRect; }
 
 	virtual void OnCollision(CEntityBase* self, CEntityBase* other) {}
 
 private:
 	ECollisionType m_collisionType;
-	Rect m_collisionRect;
 };

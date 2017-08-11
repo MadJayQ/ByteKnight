@@ -69,12 +69,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Game Development\SDL2_gfx-1.0.1\Win32\Debug;C:\Users\Jakes\Desktop\ByteKnight\Box2D\Box2D\Build\vs2015\bin\Debug;C:\Users\Jakes\Desktop\ByteKnight\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Game Development\SDL2_gfx-1.0.1;C:\Game Development\SDL2-2.0.5\include;C:\Game Development\SDL2_image-2.0.1\include;C:\Users\Jakes\Desktop\ByteKnight\Box2D\Box2D;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <IncludePath>C:\Users\Jakes\Desktop\ByteKnight\Box2D\Box2D;C:\Game Development\SDL2_gfx-1.0.1;C:\Game Development\SDL2_image-2.0.1;C:\Game Development\SDL2-2.0.5\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jakes\Desktop\ByteKnight\Box2D\Box2D\Build\vs2015\bin\Release;C:\Game Development\SDL2_gfx-1.0.1\Win32\Release;C:\Users\Jakes\Desktop\ByteKnight\Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Game Development\SDL2_gfx-1.0.1;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,11 +121,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2DRenderComponent.h" />
-    <ClInclude Include="AABB.h" />
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CollisionSubsystem.h" />
-    <ClInclude Include="CollisionWorld.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DeviceNotify.h" />
     <ClInclude Include="DummyEvent.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="GraphicDevice.h" />
     <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="InputControllerComponent.h" />
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="InputMapping.h" />
@@ -147,21 +149,20 @@
     <ClInclude Include="ObjectMetadata.h" />
     <ClInclude Include="Platform_Windows.h" />
     <ClInclude Include="PositionComponent.h" />
-    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="RenderSubsystem.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextureUtils.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UnitConversion.h" />
+    <ClInclude Include="UnitMetrics.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2DRenderComponent.cpp" />
-    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionSubsystem.cpp" />
-    <ClCompile Include="CollisionWorld.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureUtils.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UnitMetrics.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Windows_EntryPoint.cpp" />
   </ItemGroup>

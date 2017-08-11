@@ -1,5 +1,5 @@
 #include "MovementSubsystem.h"
-
+#include "CollisionSubsystem.h"
 #include "PositionComponent.h"
 #include "MovementComponent.h"
 #include "InputControllerComponent.h"
@@ -39,12 +39,11 @@ void CMovementSubsystem::Tick(float flDeltaTime)
 		//This is the insertion point for our collision-system
 		if (CCollisionComponent* pCollisionComponent = ent->GetComponent<CCollisionComponent>())
 		{
-			/*
-			ent->GetGameWorld()->GetCollisionWorld()->ApplyMovementWithCollision(
-				ent,
-				flDeltaTime
-			);
-			*/
+			CCollisionSubsystem* pCollisionSubsystem = ent->GetGameWorld()->GetSubsystem<CCollisionSubsystem>();
+			if (pCollisionSubsystem)
+			{
+				//Apply movement with collision
+			}
 		}
 		else
 		{

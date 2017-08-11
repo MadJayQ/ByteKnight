@@ -5,26 +5,12 @@
 
 CGameWorld::CGameWorld()
 {
-	m_pCollisionWorld = new CCollisionWorld();
-	/*
-	m_pCollisionWorld->SetBoundingRectangle(
-		CRectangle(
-			141,
-			174,
-			1034,
-			395
-		)
-	);
-	*/
+
 }
 
 CGameWorld::~CGameWorld()
 {
-	if (m_pCollisionWorld)
-	{
-		delete m_pCollisionWorld;
-		m_pCollisionWorld = NULL;
-	}
+
 }
 
 void CGameWorld::Tick(float flDeltaTime)

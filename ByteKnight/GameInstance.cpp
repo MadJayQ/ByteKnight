@@ -17,17 +17,26 @@
 #include <RenderSubsystem.h>
 #include <MovementSubsystem.h>
 #include <InputSubsystem.h>
+#include <CollisionSubsystem.h>
 
-#include <InputMapping.h>
+#include <InputMapping.h> 
+#include <UnitMetrics.h>
 
 #include "TestEntity.h"
+#include "TestDummy.h"
 #include "Defines.h"
+
+#include <Box2D\Box2D.h>
+
+#pragma comment(lib, "Box2D.lib")
 
 constexpr const char* g_szBuildDate = __DATE__;
 constexpr const char* g_szBuildTime = __TIME__;
 
 const char* g_szVersion = "Windows Pre-Alpha - v1.0.1a";
 const char* g_szClassName = "CLASS_ByteKnight";
+
+std::vector<ui32> ui32Messages;
 
 
 CEntityBase* ent = 0;
@@ -102,25 +111,32 @@ void GameInstance::Initialize()
 	g_pAssetLoader = std::make_unique<CAssetLoader>(m_pGraphicsDevice.get());
 	
 	g_pGlobalVars = std::make_unique<CGlobalVars>();
-	g_pGlobalVars->ui32Tickrate = 60;
+	g_pGlobalVars->ui32Tickrate = 1024;
 	g_pGlobalVars->flTickInterval = 1.f / static_cast<float>(g_pGlobalVars->ui32Tickrate);
 	g_pGameWorld = std::make_unique<CGameWorld>();
 	g_pTimer = std::make_unique<CTimer>();
-	g_pTimer->StartTimer();
 	m_bLooping = true;
+	CUnitMetrics::Instance()->SetPixelsPerMeter(64.f, 1.856); //1.856 is the average high of a male in Meters
 
-	g_pGameWorld->CreateSubsystem<CRenderSubsystem>();
+	auto pRenderSubsytem = g_pGameWorld->CreateSubsystem<CRenderSubsystem>();
 	g_pGameWorld->CreateSubsystem<CMovementSubsystem>();
+
+	pRenderSubsytem->RegisterGraphicsDevice(m_pGraphicsDevice.get());
+	pRenderSubsytem->SetFlags(b2Draw::e_shapeBit | b2Draw::e_jointBit | b2Draw::e_aabbBit | b2Draw::e_pairBit | b2Draw::e_centerOfMassBit);
 	
+	auto pCollisionSubsystem = g_pGameWorld->CreateSubsystem<CCollisionSubsystem>();
+	pCollisionSubsystem->GetCollisionWorld()->SetDebugDraw(
+		pRenderSubsytem
+	);
 	m_pGameWindow->RegisterObserver(
 		g_pGameWorld->CreateSubsystem<CInputSubsystem>()
 	);
-	
 
 	//Remove this later
 	LoadDefaultBackground();
 	ent = g_pGameWorld->SpawnEntity<CTestEntity>(v3(391.f, 318.f, 0.f));
 	ent->GetComponent<CMovementComponent>()->SetVelocity(v3(500.f, 0.f, 0.f));
+	g_pGameWorld->SpawnEntity<CTestDummy>(v3(15.f, 15.f, 0.f));
 }
 
 int GameInstance::EngineLoop()
@@ -131,15 +147,17 @@ int GameInstance::EngineLoop()
 		{
 			TranslateMessage(&g_lastMessage);
 			DispatchMessage(&g_lastMessage);
+			ui32Messages.push_back(g_lastMessage.message);
 		}
-		else
+		SDL_Event e;
+		//while (SDL_PollEvent(&e) != 0) {}
+		EngineInstance::EngineLoop();
+		if (g_lastMessage.message == WM_QUIT)
 		{
-			SDL_Event e;
-			while (SDL_PollEvent(&e) != 0) {}
-			EngineInstance::EngineLoop();
-			m_bLooping = g_lastMessage.message != WM_QUIT;
-			Sleep(10);
+			m_bLooping = false;
 		}
+		Sleep(10);
+		
 	}
 	return 0;
 }
@@ -164,26 +182,6 @@ void GameInstance::Update()
 
 	g_pGlobalVars->flInterpolation = flAccumulatedTime / flTargetTickTime;
 	g_pGlobalVars->flCurrentTime = flCurrentTime;
-	/*
-	v3 vecPos;
-	if (ent)
-	{
-		vecPos = ent->GetComponent<CPositionComponent>()->GetPositon();
-		auto pMovementComponent = ent->GetComponent<CMovementComponent>();
-		if (vecPos._x < 0)
-		{
-			pMovementComponent->SetVelocity(
-				v3(500.f, 0.f, 0.f)
-			);
-		}
-		else if (vecPos._x > 1280 - 32)
-		{
-			pMovementComponent->SetVelocity(
-				v3(-500.f, 0.f, 0.f)
-			);
-		}
-	}
-	*/
 }
 
 void GameInstance::Render()
@@ -191,13 +189,27 @@ void GameInstance::Render()
 	//For now just do our rendering ASAP 
 	
 	m_pGraphicsDevice->Clear();
-	g_pGameWorld->GetSubsystem<CRenderSubsystem>()->Render(m_pGraphicsDevice.get());
+	CRenderSubsystem* pRenderSubsystem = g_pGameWorld->GetSubsystem<CRenderSubsystem>();
+	CCollisionSubsystem* pCollisionSubsystem = g_pGameWorld->GetSubsystem<CCollisionSubsystem>();
+	//pRenderSubsystem->Render();
+	pCollisionSubsystem->GetCollisionWorld()->DrawDebugData();
 	m_pGraphicsDevice->Present();
 }
 
 void GameInstance::OnEventNotify(CEntityBase* ent, IEvent* e)
 {
-
+	LOCAL_PERSISTENT bool timer = false;
+	if (CKeyInputEvent* pEvent = dynamic_cast<CKeyInputEvent*>(e))
+	{
+		if (pEvent->GetKeyNum() == VK_RETURN)
+		{
+			if (ButtonState::Pressed(pEvent->GetKeyState()))
+			{
+				(timer) ? g_pTimer->StopTimer() : g_pTimer->StartTimer();
+				timer = !timer;
+			}
+		}
+	}
 }
 
 void GameInstance::CreateInputMapping()

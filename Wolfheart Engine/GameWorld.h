@@ -6,7 +6,6 @@
 #include "PositionComponent.h"
 #include "EventObserver.h"
 #include "EventSource.h"
-#include "CollisionWorld.h"
 
 #include <vector>
 #include <queue>
@@ -77,8 +76,6 @@ public:
 		RegisterEntToSubsystem_Helper<Subsystems...>::exec(this, ent);
 	}
 
-	CCollisionWorld* GetCollisionWorld() const { return m_pCollisionWorld; }
-
 	void DestroyEntity(CEntityBase* ent);
 
 	virtual void OnEventNotify(CEntityBase* ent, IEvent* e) override;
@@ -113,6 +110,4 @@ private:
 	std::vector<CEntityBase*> m_pEntities;
 	std::queue<ui32> m_freeIDs;
 	ui32 m_ui32NextEntityID = 0UL;
-
-	CCollisionWorld* m_pCollisionWorld;
 };

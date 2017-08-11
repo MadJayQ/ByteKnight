@@ -29,9 +29,9 @@ private:
 	SDL_Surface* Internal_LoadPNG(SDL_RWops* file);
 	void Internal_LoadTexture(const char* szFileName, SPRITE_FILE_TYPE fileType);
 private:
-	SDL_Surface* m_pSurface;
-	SDL_Texture* m_pTexture;
+	SDL_Surface* m_pSurface = NULL;
+	SDL_Texture* m_pTexture = NULL;
 
-	int m_nWidth;
-	int m_nHeight;
+	int m_nWidth = 0;
+	int m_nHeight = 0;
 };

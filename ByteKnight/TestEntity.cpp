@@ -3,6 +3,7 @@
 #include <RenderSubsystem.h>
 #include <MovementSubsystem.h>
 #include <InputSubsystem.h>
+#include <CollisionSubsystem.h>
 
 #include <GameWorld.h>
 
@@ -15,13 +16,8 @@ CTestEntity::CTestEntity(ui32 ui32EntityID, CGameWorld* pGameWorld) : CEntityBas
 	m_pMovementComponent = AddComponent<CMovementComponent>();
 	m_pPositionComponent = AddComponent<CPositionComponent>();
 	m_pInputComponent = AddComponent<CInputControllerComponent>();
-	m_pCollisionComponent = AddComponent<CCollisionComponent>();
-	m_pCollisionComponent->SetCollisionRect(
-		0,
-		0,
-		32,
-		64
-	);
+	//m_pCollisionComponent = AddComponent<CCollisionComponent>();
+
 	m_pInputComponent->CreateAxisBinding(KBMOVEMENTX, this, &CTestEntity::InputAxis);
 	m_pInputComponent->CreateAxisBinding(KBMOVEMENTY, this, &CTestEntity::InputAxis);
 
